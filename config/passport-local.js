@@ -1,6 +1,6 @@
 import passport from 'passport';
 import LocalStrategy from 'passport-local';
-import { getUser } from '../models/users';
+import models from '../models';
 
 const passportLocalStrategy = () => {
     passport.serializeUser(function(user, done) {
@@ -9,7 +9,20 @@ const passportLocalStrategy = () => {
 
     passport.deserializeUser(function(id, done) {
         const user = model.users.getUserById(id);
-        done(null, user);
+
+        models.User.findAll({
+            where: {
+                id: id
+            }
+        })
+        .then((user) => {
+            done(null, user);
+        })
+        .catch(() => {
+            done(null, false);
+        });
+
+        
     });
 
     passport.use('local-login', new LocalStrategy({

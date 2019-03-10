@@ -1,7 +1,6 @@
 import express from 'express';
 import { passport } from '../config/passport-local';
 import { handleAuth, handleAuthLocalPassport } from '../controllers/auth';
-import d from '../config/passport-google-oauth';
 
 const router = express.Router();
 
