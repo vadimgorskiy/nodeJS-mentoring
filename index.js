@@ -6,7 +6,7 @@ import { passport, passportLocalStrategy } from './config/passport-local';
 import models from './models';
 
 // const users = require('./data/users');
-// const products = require('./data/products');
+const products = require('./data/products');
 
 passportLocalStrategy();
 const app = express();
@@ -24,16 +24,6 @@ app.use('/api', productsRouter);
 models.sequelize
     .sync()
     .then(() => {
-        console.log('Connection has been established successfully.');
-
-        // products.forEach(product => {
-        //     models.Product.create({
-        //         id: product.id,
-        //         name: product.name,
-        //         detail: product.detail,
-        //         price: product.price
-        //     });
-        // });
 
         // users.forEach(user => {
         //     models.User.create({
@@ -59,15 +49,21 @@ models.sequelize
         //     console.log(d);
         // });
 
-        // models.User.findAll({
-        //     where: {
-        //         id: '2'
-        //     }
-        // })
-        // .then((users) => {
-        //     console.log(users.map(user => user.toJSON()));
-        // })
-        // .catch((e) => console.log(e));
+        return models.Product.findAll({
+            raw: true,
+        });
+    })
+    .then((data) => {
+        if (!data.length) {
+            products.forEach(product => {
+                models.Product.create({
+                    id: product.id,
+                    name: product.name,
+                    detail: product.detail,
+                    price: product.price
+                }).then();
+            });
+        }
 
         app.listen(port, () => console.log(`App listening on port ${port}!`));
     })
