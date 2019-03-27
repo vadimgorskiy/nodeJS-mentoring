@@ -50,12 +50,12 @@ models.connect()
     })
     .catch(() => {});
 
-// MongoClient.connect(config.urlDB, { useNewUrlParser: true })
-//     .then((client) => {
-//         const myDB = client.db('newdb');
-//         myDB.createCollection('cities')
-//             .then(collection => {
-//                 return collection.insertMany(products); 
-//             })
-//             .then(() => console.log('a collection of cities was created'));
-//     })
+MongoClient.connect(config.urlDB, { useNewUrlParser: true })
+    .then((client) => {
+        const myDB = client.db('newdb');
+        myDB.createCollection('cities')
+            .then(collection => {
+                return collection.insertMany(products); 
+            })
+            .then(() => console.log('a collection of cities was created'));
+    })
