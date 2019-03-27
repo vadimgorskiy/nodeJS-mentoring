@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.post('/auth', handleAuth);
 
-router.post('/auth/passport/local', passport.authenticate('local-login', {session: false}), handleAuthLocalPassport);
+// router.post('/auth/passport/local', passport.authenticate('local-login', {session: false}), handleAuthLocalPassport);
 
 export default router;

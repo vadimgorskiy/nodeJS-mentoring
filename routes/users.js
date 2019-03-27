@@ -4,10 +4,10 @@ import { handleUsers, handleCreateUser, handleDeleteUser } from '../controllers/
 
 const router = express.Router();
 
-router.get('/users', validateToken, handleUsers);
+router.get('/users', validateToken,  handleUsers);
 
 router.post('/users', validateToken, handleCreateUser);
 
-router.delete('/users/:id', validateToken, handleDeleteUser);
+router.delete('/users/:id', validateToken,  handleDeleteUser);
 
 export default router;

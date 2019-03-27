@@ -1,0 +1,92 @@
+[
+    {
+      "name": "Durres",
+      "country": "Albania",
+      "capital": false,
+      "location": {
+        "lat": 52.097621,
+        "long": 23.73405
+      }
+    },
+    {
+      "name": "Vienna",
+      "country": "Austria",
+      "capital": true,
+      "location": {
+        "lat": 52.097621,
+        "long": 23.73405
+      }
+    },
+    {
+      "name": "Manama",
+      "country": "Bahrain",
+      "capital": true,
+      "location": {
+        "lat": 52.097621,
+        "long": 23.73405
+      }
+    },
+    {
+      "name": "Brest",
+      "country": "Belarus",
+      "capital": false,
+      "location": {
+        "lat": 52.097621,
+        "long": 23.73405
+      }
+    },
+    {
+      "name": "Sofia",
+      "country": "Bulgaria",
+      "capital": true,
+      "location": {
+        "lat": 52.097621,
+        "long": 23.73405
+      }
+    },
+    {
+      "name": "Montreal",
+      "country": "Canada",
+      "capital": false,
+      "location": {
+        "lat": 52.097621,
+        "long": 23.73405
+      }
+    },
+    {
+      "name": "Havana",
+      "country": "Cuba",
+      "capital": true,
+      "location": {
+        "lat": 52.097621,
+        "long": 23.73405
+      }
+    },
+    {
+      "name": "Ostrava",
+      "country": "Czech Republic",
+      "capital": false,
+      "location": {
+        "lat": 52.097621,
+        "long": 23.73405
+      }
+    },
+    {
+      "name": "Helsinki",
+      "country": "Finland",
+      "capital": true,
+      "location": {
+        "lat": 52.097621,
+        "long": 23.73405
+      }
+    },
+    {
+      "name": "Hamburg",
+      "country": "Germany",
+      "capital": false,
+      "location": {
+        "lat": 52.097621,
+        "long": 23.73405
+      }
+    }
+  ]

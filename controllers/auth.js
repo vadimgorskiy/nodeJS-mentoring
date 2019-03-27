@@ -1,28 +1,26 @@
 import jwt from 'jsonwebtoken';
-import models from '../models';
+import { models } from '../models';
 
 export const handleAuth = (req, res) => {
 
     models.User
         .findOne({
-            where: {
-                username: req.body.firstName,
-                password: req.body.password
-            },
-            raw: true,
+            firstName: req.body.firstName,
+            password: req.body.password,
         })
         .then((user) => {
-            console.log(user);
             if (user) {
                 res.status(200).json({
                     code: 200,
                     message: 'OK',
-                    token: jwt.sign({userId: user.id}, 'auth', {expiresIn: 10000}),
+                    token: jwt.sign({userId: user._id}, 'auth', {expiresIn: 10000}),
                     data: {
                         user: {
-                            id: user.id,
-                            username: user.username,
+                            _id: user._id,
+                            username: user.firstName,
                             lastName: user.lastName,
+                            age: user.age,
+                            registered: user.registered,
                         }
                     },
                 });
@@ -35,7 +33,6 @@ export const handleAuth = (req, res) => {
                     },
                 });
             }
-            
         })
         .catch((error) => {
             res.status(500).json({
@@ -45,7 +42,7 @@ export const handleAuth = (req, res) => {
                     error
                 },
             });
-        });
+        })
 };
 
 export const handleAuthLocalPassport = (req, res) => {

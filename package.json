@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "nodemon": "nodemon --exec babel-node",
-    "start": "npm run nodemon ./index.js",
-    "sequelize": "sequelize"
+    "start": "npm run nodemon ./index",
+    "fill_db": "babel-node ./models/init"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,8 @@
     "cookie-session": "^2.0.0-beta.3",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.4.0",
+    "mongodb": "^3.1.13",
+    "mongoose": "^5.4.19",
     "passport": "^0.4.0",
     "passport-google-oauth": "^1.0.0",
     "passport-local": "^1.0.0",

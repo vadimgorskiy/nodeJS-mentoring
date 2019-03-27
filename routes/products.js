@@ -1,13 +1,13 @@
 import express from 'express';
 import { validateToken } from '../middlewares/token-validator';
-import { handleProducts, handleProductById, handleDeleteProductById } from '../controllers/products';
+import { getProducts, getProductById, deleteProductById } from '../controllers/products';
 
 const router = express.Router();
 
-router.get('/products', validateToken, handleProducts);
+router.get('/products', validateToken, getProducts);
 
-router.get('/products/:id', validateToken, handleProductById);
+router.get('/products/:id', validateToken, getProductById);
 
-router.delete('/products/:id', validateToken, handleDeleteProductById);
+router.delete('/products/:id', validateToken, deleteProductById);
 
 export default router;

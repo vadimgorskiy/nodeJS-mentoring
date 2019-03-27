@@ -1,73 +1,34 @@
-import models from '../models';
+import { models } from '../models';
+import { 
+    errorResponse,
+    successResonse,
+    notFoundResponse,
+ } from '../responses';
+ import { User } from '../entities/user';
 
 export const handleUsers = (req, res) => {
     models.User
-        .findAll({
-            raw: true,
-        })
-        .then((users) => {
-            if (users.length) {
-                res.status(200).json({
-                    users: users.map((user) => ({
-                        id: user.id,
-                        username: user.username,
-                        lastName: user.lastName,
-                    })),
-                });
-            } else {
-                res.status(404).json({
-                    messsage: 'users not found',
-                });
-            }
-        })
-        .catch((error) => {
-            res.status(404).json({
-                error,
-            });
-        });    
+    .find()
+    .then((users) => successResonse(res, {users}))
+    .catch( err => errorResponse(res, err));
 }
 
 export const handleCreateUser = (req, res) => {
-    models.User
-        .create({
-            id: `${new Date().getTime()}`,
-            username: req.body.username,
-            lastName: req.body.lastName,
-            password: req.body.password,
-        }, {
-            raw: true,
-        })
-        .then((user) => {
-            res.status(200).json({
-                user: {
-                    id: user.id,
-                    username: user.username,
-                    lastName: user.lastName,
-                },
-            });
-        })
-        .catch((error) => {
-            res.status(500).json({
-                error,
-            });
-        });
+    new models.User(new User(req.body))
+        .save()
+        .then((user) => successResonse(res, {user}))
+        .catch((err) => errorResponse(res, err));
 }
 
 export const handleDeleteUser = (req, res) => {
     models.User
-        .destroy({
-            where: {id: req.params.id}
-        })
-        .then((isSuccess) => {
-            if (isSuccess) {
-                res.status(204).send();
+        .findOneAndRemove(req.params.id)
+        .then(user => {
+            if (user) {
+                successResonse(res, {user});
             } else {
-                res.status(404).send();
+                notFoundResponse(res, `User ${user._id} not found`);
             }
         })
-        .catch((error) => {
-            res.status(500).json({
-                error,
-            });
-        });
+        .catch( err => errorResponse(res, err));
 }

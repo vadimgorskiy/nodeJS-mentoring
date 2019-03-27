@@ -1,76 +1,39 @@
-import models from "../models";
+import { models } from "../models";
+import { 
+    errorResponse, 
+    successResonse,
+    notFoundResponse
+} from '../responses';
 
-export const handleProducts = (req, res) => {
+export const getProducts = (req, res) => {
     models.Product
-        .findAll({
-            raw: true,
-        })
+        .find()
         .then((products) => {
-            if (products && products.length) {
-                res.status(200).json({
-                    products: products.map( product => ({
-                        id: product.id,
-                        name: product.name,
-                        detail: product.detail,
-                        price: product.price
-                    })),
-                });
+            if (Array.isArray(products) && products.length) {
+                successResonse(res, {products});
             } else {
-                res.status(404).json({
-                    messages: 'products not found',
-                });
+                notFoundResponse(res, 'Products not found');
             }
         })
-        .catch((error) => {
-            res.status(500).json({
-                error,
-            });
-        });
+        .catch((err) => errorResponse(res, err));
 };
 
-export const handleProductById = (req, res) => {
+export const getProductById = (req, res) => {
     models.Product
-        .findById(req.params.id, {
-            raw: true,
-        })
+        .findById(req.params.id)
         .then((product) => {
             if (product) {
-                res.status(200).json({
-                    product: {
-                        id: product.id,
-                        name: product.name,
-                        detail: product.detail,
-                        price: product.price
-                    },
-                });
+                successResonse(res, {product});
             } else {
-                res.status(404).json({
-                    messages: `product by id ${req.params.id} not found`,
-                });
+                notFoundResponse(res, `Product by id ${req.params.id} not found`);
             }
         })
-        .catch((error) => {
-            res.status(500).json({
-                error,
-            });
-        });
+        .catch((err) => errorResponse(res, err));
 };
 
-export const handleDeleteProductById = (req, res) => {
+export const deleteProductById = (req, res) => {
     models.Product
-        .destroy({
-            where: {id: req.params.id}
-        })
-        .then((isSuccess) => {
-            if (isSuccess) {
-                res.status(204).send();
-            } else {
-                res.status(404).send();
-            }
-        })
-        .catch((error) => {
-            res.status(500).json({
-                error,
-            });
-        });
+        .findOneAndRemove(req.params.id)
+        .then(() => res.status(204).send())
+        .catch((err) => errorResponse(res, err));
 };
