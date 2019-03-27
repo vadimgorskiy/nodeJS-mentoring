@@ -61,7 +61,7 @@ const createCity = (req, res) => {
 
 const updateCity = (req, res) => {
     models.City
-        .findByIdAndUpdate(req.params.id, new City(req.body), {new: true})
+        .findByIdAndUpdate(req.params.id, new City(req.body), {new: true, upsert: true})
         .then((city) => successResonse(res, {city}))
         .catch((err) => errorResponse(res, err));
 }

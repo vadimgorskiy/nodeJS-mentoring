@@ -15,8 +15,23 @@ function clearData(model) {
     })
 }
 
+async function initModel(data, model, entity) {
+    for (const item of data) {
+        await new model(new entity(item))
+            .save()
+            .then()
+            .catch((e) => console.log(e));    
+    }
+    console.log('Done!');
+}
+
 models.connect()
     .then(() => {
+
+        initModel(cities, models.City, City);
+        initModel(users, models.User, User);
+        initModel(products, models.Product, Product);
+
         // cities.forEach(city => {
         //     new models.City(new City(city)).save().then((d) => console.log(d)).catch((e) => console.log(e));
         // });
